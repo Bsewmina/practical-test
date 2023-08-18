@@ -14,10 +14,21 @@ function Home (){
     const getEmployes = async () => {
 
         const result = await axios.get("http://localhost:3006/api/v1/employee/");
-        console.log(result.data);
         setEmployees(result.data);
 
     };
+
+    const deleteEmployee = async (id) => {
+
+        try {
+            const result = await axios.delete(`http://localhost:3006/api/v1/employee/delete/${id}`);
+        } catch (error) {
+            alert(error)
+        }
+        alert('Successfully deleted employee')
+       
+
+    }
 
     return (
         <div className="container">
@@ -42,8 +53,8 @@ function Home (){
                             <td>{employee.gender}</td>
                             <td>{employee.dob}</td>
                             <td>
-                            <Link className='btn btn-outline-primary mx-2' to={`/add/${employee.empId}`}>Edit</Link>
-                            <Link className='btn btn-danger mx-2' to={`/add/${employee.empId}`}>Delete</Link>
+                            <Link className='btn btn-outline-primary mx-2' to={`/update/${employee.empId}`}>Edit</Link>
+                            <Link className='btn btn-danger mx-2' onClick={(e) => {deleteEmployee(employee.empId)}}>Delete</Link>
                             </td>
                         </tr>
                         )}

@@ -1,7 +1,15 @@
 import axios from "axios";
-import Form from "react-bootstrap/Form"; import { useState } from "react";
+import Form from "react-bootstrap/Form"; 
+import { useState , useEffect} from "react";
+import { useParams } from "react-router-dom";
 
-function AddEmployee() {
+function UpdateEmployee() {
+
+    useEffect(() => {
+        getEmployes();
+    },[])
+
+    const {id} = useParams();
 
     const [ID, setID] = useState('');
     const [DOB, setDOB] = useState('');
@@ -9,7 +17,18 @@ function AddEmployee() {
     const [EPF, setEPF] = useState('');
     const [Gender, setGender] = useState('');
     const [Section, setSection] = useState('');
-    
+
+    const getEmployes = async (e) => {
+        const result = await axios.get(`http://localhost:3006/api/v1/employee/${id}`)
+        setID(result.data.empId);
+        setDOB(result.data.dob);
+        setName(result.data.name);
+        setEPF(result.data.epfNum);
+        setGender(result.data.gender);
+        setSection(result.data.section);
+
+    }
+
     const postData = async (e) => {
 
         e.preventDefault()
@@ -23,7 +42,7 @@ function AddEmployee() {
         }
         try {
             
-            const res = await axios.post('http://localhost:3006/api/v1/employee/', employee)
+            const res = await axios.put(`http://localhost:8080/api/v1/customer/${id}`, employee)
             console.log(res.data)
 
             alert('Customer Successfully Added')
@@ -32,6 +51,8 @@ function AddEmployee() {
         alert(e)
         }
     }
+
+    
 
     return (
         <div >
@@ -61,23 +82,23 @@ function AddEmployee() {
                     
                 </div>
                 <div className="form-row">
-                <div className="form-check form-check-inline" >
-                    <input className="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio1" value='Male' onChange={(e) => setGender(e.target.value)}/>
+                <div className="form-check form-check-inline" onChange={(e) => setGender(e.target.value)}>
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio1" value='Male'/>
                     <label className="form-check-label" for="inlineRadio1">M</label>
                     </div>
                     <div className="form-check form-check-inline">
-                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female" onChange={(e) => setGender(e.target.value)}/>
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female"/>
                     <label className="form-check-label" for="inlineRadio2">F</label>
                     </div>
                     <div className="form-check form-check-inline">
-                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Other" onChange={(e) => setGender(e.target.value)}/>
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Other"/>
                     <label className="form-check-label" for="inlineRadio3">Other</label>
                     </div>
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="inputMobile">Section</label>
                     <select class="form-select" aria-label="Default select example" onChange={(e) => setSection(e.target.value)}>
-                        <option selected value="IT">IT</option>
+                        <option value="IT">IT</option>
                         <option value="HR">HR</option>
                         <option value="Finance">Finance</option>
                         <option value="Production">Production</option>
@@ -96,4 +117,4 @@ function AddEmployee() {
     )
 }
 
-export default AddEmployee;
+export default UpdateEmployee;

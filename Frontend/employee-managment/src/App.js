@@ -4,6 +4,7 @@ import Header from './components/Header';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddEmployee from './components/AddEmployee';
+import UpdateEmployee from './components/UpdateEmployee';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
           <Route path="/" element={<Home/>}>
           </Route>
           <Route path="add" element={<AddEmployee/>}>
+          </Route>
+          <Route path="update/:id" element={<UpdateEmployee/>}>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -11,6 +11,18 @@ router.get('/', async (req: Request, res: Response) => {
     
 });
 
+router.get('/:empId', async (req: Request, res: Response) => {
+    const employee = await Employee.findOne({ empId: req.params.empId})
+
+    if (!employee){
+        res.status(400).send('Employee does not exist');
+    }
+    else{ 
+        res.status(200).send(employee);
+    }
+    
+});
+
 router.post('/', async (req: Request, res: Response) => {
 
     let isAvailble = await Employee.findOne({ empId: req.body.empId})
