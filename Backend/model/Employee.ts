@@ -7,7 +7,7 @@ const employeeSchema = new Schema({
   name: String,
   epfNum: Number,
   section: String,
-  gender: Number,
+  gender: String,
   dob: Date,
 });
 

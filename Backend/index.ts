@@ -2,8 +2,11 @@ import express, { json } from "express";
 import mongoose from "mongoose";
 import { EmployeeRoute } from "./routes/EmployeeRoute";
 
-
 const app = express();
+const cors = require ('cors');
+
+
+app.use(cors());
 app.use(express.json());
 
 
@@ -18,8 +21,8 @@ const start = async () => {
 
     app.use('/api/v1/employee/', EmployeeRoute);
   
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
+    app.listen(3006, () => {
+      console.log('Server is running on port 3006');
     });
   };
 

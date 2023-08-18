@@ -34,13 +34,16 @@ function Home (){
                         </tr>
                     </thead>
                     <tbody>
-                        {employees && employees.map(employee => <tr key={employee.empId}>
+                        {employees && employees.map(employee => <tr key={employee._id}>
+                            <td>{employee.empId}</td>
                             <td>{employee.name}</td>
                             <td>{employee.epfNum}</td>
                             <td>{employee.section}</td>
                             <td>{employee.gender}</td>
                             <td>{employee.dob}</td>
-                            <td><Link className='btn btn-outline-primary mx-2' to={`/edit/${employee.empId}`}>Edit</Link>
+                            <td>
+                            <Link className='btn btn-outline-primary mx-2' to={`/add/${employee.empId}`}>Edit</Link>
+                            <Link className='btn btn-danger mx-2' to={`/add/${employee.empId}`}>Delete</Link>
                             </td>
                         </tr>
                         )}
