@@ -26,6 +26,7 @@ function Home (){
             alert(error)
         }
         alert('Successfully deleted employee')
+        window.location.reload()
        
 
     }
